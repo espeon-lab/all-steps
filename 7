@@ -1,0 +1,55 @@
+import random
+import os  
+
+def get_user_choice():
+    while True:
+        choice = input("Rock, Paper, or Scissors?: ").lower()
+        if choice in ["rock", "paper", "scissors"]:
+            return choice.capitalize()
+        else:
+            print("Invalid choice. Please enter 'rock', 'paper', or 'scissors'.")
+
+def get_computer_choice():
+    choices = ["Rock", "Paper", "Scissors"]
+    choice = random.choice(choices)
+    return choice
+
+def determine_winner(user_choice, computer_choice):
+
+    if user_choice == computer_choice:
+        return "It's a tie!"
+
+
+    if (user_choice == "Rock" and computer_choice == "Scissors") or \
+       (user_choice == "Paper" and computer_choice == "Rock") or \
+       (user_choice == "Scissors" and computer_choice == "Paper"):
+        return "User wins!"
+
+
+    return "Computer wins!"
+
+
+def play_game():
+    user_score = 0
+    computer_score = 0
+    while True:
+        user_choice = get_user_choice()
+        computer_choice = get_computer_choice()
+        print(f"You chose: {user_choice}")
+        print(f"Computer chose: {computer_choice}")
+        winner = determine_winner(user_choice, computer_choice)
+        print(winner)
+        if winner == "User wins!":
+            user_score += 1
+        elif winner == "Computer wins!":
+            computer_score += 1
+        print(f"Current Score: User: {user_score}, Computer: {computer_score}")
+
+        play_again = input("Do you want to play again? (yes/no): ")
+        if play_again.lower() != "yes":
+            break
+        else:
+            os.system('cls' if os.name == 'nt' else 'clear')  
+            print(f"Current Score: User: {user_score}, Computer: {computer_score}")  
+
+play_game()
